@@ -7,6 +7,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
+import com.example.myapplication.stats.StatsActivity
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
@@ -31,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         initViews()
         initPieChart()
-        showPieChartData()
+        showPieChartMockData()
         initViewListeners()
     }
 
@@ -84,7 +85,7 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun showPieChartData() {
+    private fun showPieChartMockData() {
         val entries = listOf(
             PieEntry(
                 25F,
