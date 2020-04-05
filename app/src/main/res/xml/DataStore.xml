@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <Data>
+        <element>
+            <amount>10000</amount>
+            <category>"Еда"</category>
+            <comment>"Вкусный был ресторан"</comment>
+            <variable>"Расходы"</variable>
+        </element>
+    </Data>
+</resources>

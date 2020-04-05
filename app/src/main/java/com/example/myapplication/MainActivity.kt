@@ -88,7 +88,7 @@ class MainActivity : AppCompatActivity() {
     private fun showPieChartMockData() {
         val entries = listOf(
             PieEntry(
-                25F,
+                15F,
                 "Транспорт"
             ),
             PieEntry(
@@ -96,8 +96,12 @@ class MainActivity : AppCompatActivity() {
                 "Развлечения"
             ),
             PieEntry(
-                50F,
+                40F,
                 "Еда"
+            ),
+            PieEntry(
+                20F,
+                "Спорт"
             )
         )
 
