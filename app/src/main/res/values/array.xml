@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="array_category">
+        <item>Еда</item>
+        <item>Здоровье</item>
+        <item>Транспорт</item>
+        <item>Спорт</item>
+    </string-array>
+</resources>
