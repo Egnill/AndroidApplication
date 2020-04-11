@@ -1,13 +1,9 @@
 package com.example.myapplication
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.MenuItem
-import androidx.appcompat.app.ActionBar
+import kotlinx.android.synthetic.main.activity_debts.*
 
-class DebtsActivity : AppCompatActivity() {
-
-    private lateinit var actionBar: ActionBar
+class DebtsActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,19 +12,9 @@ class DebtsActivity : AppCompatActivity() {
         initViews()
     }
 
-    private fun initViews(){
-        actionBar = this.supportActionBar!!
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-    }
+    override fun initViews() {
+        super.initViews()
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                finish()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
+        button.text = "OK"
     }
 }

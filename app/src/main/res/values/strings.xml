@@ -7,4 +7,17 @@
 
     <string name="open">open</string>
     <string name="close">close</string>
+    <string name="income">Income</string>
+    <string name="category">Category</string>
+    <string name="comment">Comment</string>
+    <string name="add">add</string>
+    <string name="costs">Costs</string>
+    <string name="i_must">I must</string>
+    <string name="they_owe_me">They owe me</string>
+    <string name="plus">+</string>
+    <string name="time">Time:</string>
+    <string name="date">Date:</string>
+
+    <string name="date_temp">25.01.1997</string>
+    <string name="time_temp">11:25</string>
 </resources>
