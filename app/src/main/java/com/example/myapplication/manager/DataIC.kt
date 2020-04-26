@@ -1,5 +1,8 @@
 package com.example.myapplication.manager
 
+import kotlinx.serialization.*
+
+@Serializable
 data class DataIC(
     var amount: Int? = null,
     var category: String? = "Еда",

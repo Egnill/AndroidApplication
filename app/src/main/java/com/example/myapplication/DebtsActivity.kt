@@ -14,7 +14,5 @@ class DebtsActivity : BaseActivity() {
 
     override fun initViews() {
         super.initViews()
-
-        button.text = "OK"
     }
 }

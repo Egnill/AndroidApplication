@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-    <!ELEMENT Data_IncomeCosts (amount,category,comment,variable)>
-    <!ELEMENT amount (#PCDATA)>
-    <!ELEMENT category (#PCDATA)>
-    <!ELEMENT comment (#PCDATA)>
-    <!ELEMENT variable (#PCDATA)>

@@ -1,11 +1,16 @@
 package com.example.myapplication
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Bundle
+import android.print.PrintDocumentAdapter
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.myapplication.stats.StatsActivity
 import com.github.mikephil.charting.animation.Easing
@@ -34,6 +39,7 @@ class MainActivity : AppCompatActivity() {
         initPieChart()
         showPieChartMockData()
         initViewListeners()
+        checkPermission()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -122,5 +128,17 @@ class MainActivity : AppCompatActivity() {
         pieChart.data = data
         pieChart.highlightValues(null)
         pieChart.invalidate()
+    }
+
+    private fun checkPermission() {
+        val permissionStatus =
+            ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+
+        if (permissionStatus != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE),
+                1
+            )
+        }
     }
 }
