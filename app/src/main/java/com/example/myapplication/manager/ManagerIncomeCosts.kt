@@ -1,145 +1,64 @@
 package com.example.myapplication.manager
 
-import org.w3c.dom.Document
-import org.w3c.dom.Element
-import org.w3c.dom.NodeList
-import org.xml.sax.SAXException
+import android.os.Environment
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonConfiguration
 import java.io.*
-import javax.xml.parsers.*
-import javax.xml.transform.*
-import javax.xml.transform.dom.*
-import javax.xml.transform.stream.*
+import javax.xml.parsers.ParserConfigurationException
 
 
+@Suppress("DEPRECATED_IDENTITY_EQUALS", "UNREACHABLE_CODE")
 class ManagerIncomeCosts {
 
     //private var listIC: List<DataIC>
     private var m: DataIC? = null
-    private var FILENAME: String = "C:\\Users\\alex_\\AndroidStudioProjects\\MyApplication2\\app\\src\\main\\res\\assets\\DataStore"
-
-    private var amount: String? = null
-    private var category: String? = null
-    private var comment: String? = null
-    private var variable: String? = null
-    //private var rolev: ArrayList<String>? = null
+    //private var fileNAME: String = "datastore"
+    private val json = Json(JsonConfiguration.Stable)
 
     fun set(amount: Int?, category: String?, comment: String?, variable: String?) {
         m = DataIC(amount, category, comment, variable)
     }
 
-    fun readXML(): List<DataIC> {
-        val rolev = ArrayList<String>()
-        val dom: Document
-        // Make an  instance of the DocumentBuilderFactory
-        val dbf: DocumentBuilderFactory = DocumentBuilderFactory.newInstance()
+    fun readJSON(): List<DataIC> {
         try {
-            // use the factory to take an instance of the document builder
-            val db: DocumentBuilder = dbf.newDocumentBuilder()
-            // parse using the builder to get the DOM mapping of the
-            // XML file
-            dom = db.parse(FILENAME)
-            val doc: Element = dom.documentElement
-            amount = getTextValue(amount, doc, "amount")
-            if (amount != null) {
-                if (amount != null) rolev.add(amount!!)
-            }
-            category = getTextValue(category, doc, "category")
-            if (category != null) {
-                if (category != null) rolev.add(category!!)
-            }
-            comment = getTextValue(comment, doc, "comment")
-            if (comment != null) {
-                if (comment != null) rolev.add(comment!!)
-            }
-            variable = getTextValue(variable, doc, "variable")
-            if (variable != null) {
-                if (variable != null) rolev.add(variable!!)
-            }
-            //return true
-        } catch (pce: ParserConfigurationException) {
-            //System.out.println(pce.getMessage())
-        } catch (se: SAXException) {
-            //System.out.println(se.getMessage())
+            val rootPath: String = Environment.getExternalStorageState().toString() + "/MyFolder/"
+            val file = File(rootPath, "dataStore.json")
+            val buf = BufferedReader(FileReader(file))
+            val read = buf.readLine()
+            m = toObject(read)
+            buf.close()
         } catch (ioe: IOException) {
             //System.err.println(ioe.getMessage())
         }
-
-        return listOf(DataIC(rolev[0].toInt(), rolev[1], rolev[2], rolev[3]))
+        return listOf(DataIC(m!!.amount, m!!.category, m!!.comment, m!!.variable))
     }
 
-    fun writeXML() {
-        val dom: Document
-        var e: Element?
-
-        /*amount = listIC[listIC.size - 1].amount.toString()
-        category = listIC[listIC.size - 1].category
-        comment = listIC[listIC.size - 1].comment
-        variable = listIC[listIC.size - 1].variable*/
-
-        amount = m!!.amount.toString()
-        category = m!!.category
-        comment = m!!.comment
-        variable = m!!.variable
-
-        // instance of a DocumentBuilderFactory
-        val dbf =
-            DocumentBuilderFactory.newInstance()
+    fun writeJSON(): String {
         try {
-            // use factory to get an instance of document builder
-            val db = dbf.newDocumentBuilder()
-            // create instance of DOM
-            dom = db.newDocument()
-
-            // create the root element
-            val rootEle: Element? = dom.createElement("Data_IncomeCosts")
-
-            // create data elements and place them under root
-            e = dom.createElement("amount")
-            e.appendChild(dom.createTextNode(amount))
-            rootEle?.appendChild(e)
-            e = dom.createElement("category")
-            e.appendChild(dom.createTextNode(category))
-            rootEle?.appendChild(e)
-            e = dom.createElement("comment")
-            e.appendChild(dom.createTextNode(comment))
-            rootEle?.appendChild(e)
-            e = dom.createElement("variable")
-            e.appendChild(dom.createTextNode(variable))
-            rootEle?.appendChild(e)
-            dom.appendChild(rootEle)
-            try {
-                val tr: Transformer = TransformerFactory.newInstance().newTransformer()
-                tr.setOutputProperty(OutputKeys.INDENT, "yes")
-                tr.setOutputProperty(OutputKeys.METHOD, "xml")
-                tr.setOutputProperty(OutputKeys.ENCODING, "UTF-8")
-                tr.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, "Data_Conf.dtd")
-                tr.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4")
-
-                // send DOM to file
-                tr.transform(
-                    DOMSource(dom),
-                    StreamResult(FileOutputStream(FILENAME))
-                )
-            } catch (te: TransformerException) {
-                //System.out.println(te.getMessage())
-            } catch (ioe: IOException) {
-                println(ioe.message)
+            val rootPath: String = Environment.getExternalStorageState().toString()
+            val root = File(rootPath, "/MyFolder/")
+            if (!root.exists()) {
+                root.mkdir()
             }
+            val file = File(root, "dataStore.json")
+            if (!file.exists()) {
+                file.createNewFile()
+            }
+            val buf = BufferedWriter(FileWriter(file, true))
+            if (m != null) buf.write(toJson(m!!))
+            else buf.write("ERROR!")
+            buf.close()
+            return "Create"
         } catch (pce: ParserConfigurationException) {
-            println("UsersXML: Error trying to instantiate DocumentBuilder $pce")
+            return "SORRY"
         }
     }
 
-    private fun getTextValue(
-        def: String?,
-        doc: Element,
-        tag: String
-    ): String? {
-        var value = def
-        val nl: NodeList = doc.getElementsByTagName(tag)
-        if (nl.length > 0 && nl.item(0).hasChildNodes()) {
-            value = nl.item(0).firstChild.nodeValue
-        }
-        return value
+    private fun toObject(stringValue: String): DataIC {
+        return json.parse(DataIC.serializer(), stringValue)
+    }
+
+    private fun toJson(field: DataIC): String {
+        return json.stringify(DataIC.serializer(), field)
     }
 }

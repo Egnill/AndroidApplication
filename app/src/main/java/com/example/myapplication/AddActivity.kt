@@ -1,18 +1,16 @@
 package com.example.myapplication
 
 import android.os.Bundle
-import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
+import android.widget.*
 import com.example.myapplication.manager.*
 import kotlinx.android.synthetic.main.activity_add.*
 import java.text.*
 import java.util.*
+import com.google.android.material.textfield.TextInputEditText
 
 class AddActivity : BaseActivity() {
 
-    private var dateText: String? = null
-    private var timeText: String? = null
+    private val m = ManagerIncomeCosts()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,53 +26,40 @@ class AddActivity : BaseActivity() {
     override fun initViews() {
         super.initViews()
 
-        val adapter = ArrayAdapter(
-            this,
-            android.R.layout.simple_spinner_item,
-            resources.getStringArray(R.array.array_category)
-        )
-        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line)
-        category.adapter = adapter
-        category.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>,
-                view: View,
-                position: Int,
-                id: Long
-            ) {
-                // Display the selected item text on text view
-                //textView_c.text = "Spinner selected : ${parent.getItemAtPosition(position).toString()}"
-            }
+        //For example
+        (pay.editText as? TextInputEditText)?.setText("1000")
+        (comment.editText as? TextInputEditText)?.setText("plz, work")
 
-            override fun onNothingSelected(parent: AdapterView<*>) {
-                // Another interface callback
-            }
-        }
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, resources.getStringArray(R.array.array_category))
+        (category.editText as? AutoCompleteTextView)?.setAdapter(adapter)
     }
 
     private fun addFun() {
-        val amount: Int = enter_pay.text.toString().toInt()
-        val category: String = category.selectedItem.toString()
-        val comment: String? = enter_comments.text.toString()
-        val variable: String? = when (ic_radioGroup.id) {
-            R.id.income_radioButton -> "income"
-            R.id.costs_radioButton -> "costs"
+        val amount: Int = pay.editText?.text.toString().toInt()
+        val category: String = category.editText?.text.toString()
+        val comment: String? = comment.editText?.text.toString()
+        val variable: String? = when {
+            income_radioButton.isChecked -> "income"
+            costs_radioButton.isChecked -> "costs"
             else -> null
         }
 
-        val m = ManagerIncomeCosts()
         m.set(amount, category, comment, variable)
-        m.writeXML()
+        m.writeJSON()
     }
 
     private fun setDate() {
         val currentDate = Date()
         val dateFormat: DateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
-        dateText = dateFormat.format(currentDate)
+        val dateText = dateFormat.format(currentDate)
         val timeFormat: DateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
-        timeText = timeFormat.format(currentDate)
+        val timeText = timeFormat.format(currentDate)
 
-        date_field.text = dateText
-        time_field.text = timeText
+        (data.editText as? TextInputEditText)?.setText(dateText)
+        (time.editText as? TextInputEditText)?.setText(timeText)
+    }
+
+    private fun MaterDis() {
+
     }
 }
