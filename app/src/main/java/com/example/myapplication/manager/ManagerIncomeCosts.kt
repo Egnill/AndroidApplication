@@ -1,5 +1,6 @@
 package com.example.myapplication.manager
 
+import android.content.Context
 import android.os.Environment
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonConfiguration
@@ -10,9 +11,7 @@ import javax.xml.parsers.ParserConfigurationException
 @Suppress("DEPRECATED_IDENTITY_EQUALS", "UNREACHABLE_CODE")
 class ManagerIncomeCosts {
 
-    //private var listIC: List<DataIC>
     private var m: DataIC? = null
-    //private var fileNAME: String = "datastore"
     private val json = Json(JsonConfiguration.Stable)
 
     fun set(amount: Int?, category: String?, comment: String?, variable: String?) {
@@ -30,13 +29,12 @@ class ManagerIncomeCosts {
         } catch (ioe: IOException) {
             //System.err.println(ioe.getMessage())
         }
-        return listOf(DataIC(m!!.amount, m!!.category, m!!.comment, m!!.variable))
+        return listOf(m!!)
     }
 
-    fun writeJSON(): String {
+    fun writeJSON(context: Context) {
         try {
-            val rootPath: String = Environment.getExternalStorageState().toString()
-            val root = File(rootPath, "/MyFolder/")
+            val root = File(context.getExternalFilesDir(null), "/MyFolder/")
             if (!root.exists()) {
                 root.mkdir()
             }
@@ -48,9 +46,8 @@ class ManagerIncomeCosts {
             if (m != null) buf.write(toJson(m!!))
             else buf.write("ERROR!")
             buf.close()
-            return "Create"
         } catch (pce: ParserConfigurationException) {
-            return "SORRY"
+
         }
     }
 

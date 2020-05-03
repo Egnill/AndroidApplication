@@ -27,8 +27,8 @@ class AddActivity : BaseActivity() {
         super.initViews()
 
         //For example
-        (pay.editText as? TextInputEditText)?.setText("1000")
-        (comment.editText as? TextInputEditText)?.setText("plz, work")
+        pay.editText?.setText("1000")
+        comment.editText?.setText("plz, work")
 
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, resources.getStringArray(R.array.array_category))
         (category.editText as? AutoCompleteTextView)?.setAdapter(adapter)
@@ -45,7 +45,7 @@ class AddActivity : BaseActivity() {
         }
 
         m.set(amount, category, comment, variable)
-        m.writeJSON()
+        m.writeJSON(this)
     }
 
     private fun setDate() {
@@ -55,11 +55,7 @@ class AddActivity : BaseActivity() {
         val timeFormat: DateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
         val timeText = timeFormat.format(currentDate)
 
-        (data.editText as? TextInputEditText)?.setText(dateText)
-        (time.editText as? TextInputEditText)?.setText(timeText)
-    }
-
-    private fun MaterDis() {
-
+        data.editText?.setText(dateText)
+        time.editText?.setText(timeText)
     }
 }
