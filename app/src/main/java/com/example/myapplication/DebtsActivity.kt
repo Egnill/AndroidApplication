@@ -1,9 +1,11 @@
 package com.example.myapplication
 
 import android.os.Bundle
-import kotlinx.android.synthetic.main.activity_debts.*
+import com.example.myapplication.animation.*
 
 class DebtsActivity : BaseActivity() {
+
+    private lateinit var  adapter: CollectionAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

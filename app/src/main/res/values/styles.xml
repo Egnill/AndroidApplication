@@ -8,4 +8,19 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="Material_Field" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+    </style>
+
+    <style name="Material_DropDownMenu" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+    </style>
+
+    <style name="Material_Button" parent="Theme.MaterialComponents.Light">
+
+    </style>
+
+    <style name="Material_TabLayout" parent="Widget.MaterialComponents.TabLayout">
+
+    </style>
 </resources>
