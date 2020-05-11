@@ -11,10 +11,6 @@ open class BaseActivity : AppCompatActivity() {
 
     private lateinit var actionBar: ActionBar
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     protected open fun initViews() {
         actionBar = this.supportActionBar!!
         actionBar.setHomeButtonEnabled(true)

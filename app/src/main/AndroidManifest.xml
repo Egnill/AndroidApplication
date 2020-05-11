@@ -10,8 +10,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".DebtsActivity" />
+        android:theme="@style/Material_Theme">
+        <activity android:name=".debts.DebtsActivity" />
         <activity android:name=".stats.StatsActivity" />
         <activity android:name=".AddActivity" />
         <activity android:name=".MessageActivity" />

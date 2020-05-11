@@ -4,8 +4,8 @@ import kotlinx.serialization.*
 
 @Serializable
 data class DataIC(
-    var amount: Int? = null,
-    var category: String? = "Еда",
-    var comment: String? = null,
-    var variable: String? = "income"
+    var amount: Int?,
+    var category: String?,
+    var comment: String?,
+    var variable: String?
 )
