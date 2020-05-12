@@ -6,11 +6,10 @@ import com.example.myapplication.manager.*
 import kotlinx.android.synthetic.main.activity_add.*
 import java.text.*
 import java.util.*
-import com.google.android.material.textfield.TextInputEditText
 
 class AddActivity : BaseActivity() {
 
-    private val m = ManagerIncomeCosts()
+    private val m = ManagerIncomeCosts(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,8 +43,7 @@ class AddActivity : BaseActivity() {
             else -> null
         }
 
-        m.set(amount, category, comment, variable)
-        m.writeJSON(this)
+        m.writeJSON(amount, category, comment, variable)
     }
 
     private fun setDate() {

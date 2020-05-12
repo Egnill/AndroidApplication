@@ -5,13 +5,13 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Bundle
-import android.print.PrintDocumentAdapter
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.example.myapplication.debts.DebtsActivity
 import com.example.myapplication.stats.StatsActivity
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.PieChart

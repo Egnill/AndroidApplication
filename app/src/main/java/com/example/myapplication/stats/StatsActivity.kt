@@ -5,11 +5,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.BaseActivity
 import com.example.myapplication.R
+import com.example.myapplication.manager.ManagerIncomeCosts
 import java.math.BigDecimal
 
 class StatsActivity : BaseActivity() {
 
     private lateinit var recyclerView: RecyclerView
+    private var m = ManagerIncomeCosts(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +29,7 @@ class StatsActivity : BaseActivity() {
     }
 
     private fun getMockStats(): List<Stats> {
-        return listOf( Stats("Еда", BigDecimal(-1000)))
+        val r = m.readJSON()
+        return listOf(Stats(r[r.size - 1].category, BigDecimal(r[r.size - 1].amount!!)))
     }
 }

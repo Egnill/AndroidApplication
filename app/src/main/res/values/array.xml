@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="array_category">
-        <item>Еда</item>
-        <item>Здоровье</item>
-        <item>Транспорт</item>
-        <item>Спорт</item>
+        <item>Food</item>
+        <item>Health</item>
+        <item>Transport</item>
+        <item>Sport</item>
+    </string-array>
+
+    <string-array name="ex_array">
+        <item>Example</item>
+        <item>Example</item>
+        <item>Example</item>
+        <item>Example</item>
+        <item>Example</item>
+        <item>Example</item>
+        <item>Example</item>
+        <item>Example</item>
+        <item>Example</item>
+        <item>Example</item>
     </string-array>
 </resources>
