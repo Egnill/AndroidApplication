@@ -43,7 +43,7 @@ class AddActivity : BaseActivity() {
             else -> null
         }
 
-        m.writeJSON(amount, category, comment, variable)
+        m.writeJSON(amount, category, comment, variable, "dataStore.json")
     }
 
     private fun setDate() {

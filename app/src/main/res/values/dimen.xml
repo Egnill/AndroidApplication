@@ -2,10 +2,13 @@
 <resources>
 
     <dimen name="test_size">24sp</dimen>
+    <dimen name="test_size_fragment">16sp</dimen>
     <dimen name="l_width">200dp</dimen>
     <dimen name="margin_start">40dp</dimen>
     <dimen name="margin_left">40dp</dimen>
     <dimen name="constraintVertical_bias">0.015</dimen>
 
     <dimen name="mater_margin">16dp</dimen>
+    <dimen name="mater_margin_x3">48dp</dimen>
+    <dimen name="mater_margin_x4">64dp</dimen>
 </resources>
