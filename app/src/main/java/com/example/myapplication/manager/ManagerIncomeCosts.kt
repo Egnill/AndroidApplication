@@ -7,40 +7,38 @@ import kotlinx.serialization.json.JsonConfiguration
 import java.io.*
 import javax.xml.parsers.ParserConfigurationException
 
-class ManagerIncomeCosts (private var context: Context) {
+class ManagerIncomeCosts (var context: Context) {
 
     private var m: DataIC? = null
     private lateinit var list_m: MutableList<DataIC>
     private val json = Json(JsonConfiguration.Stable)
 
-    fun readJSON(): List<DataIC> {
-        var l:List<DataIC>? = null
+    fun readJSON(path: String): List<DataIC> {
+        var l:List<DataIC> = ArrayList()
         try {
-            val rootPath = File(context.getExternalFilesDir(null), "/MyFolder/dataStore.json")
+            val rootPath = File(context.getExternalFilesDir(null), "/MyFolder/$path")
             val buf = BufferedReader(FileReader(rootPath))
             val read = buf.readLine()
             if (read != null) l = toObject(read)
-            else l = ArrayList()
             buf.close()
         } catch (ioe: IOException) {
-            //System.err.println(ioe.getMessage())
         }
-        return l!!
+        return l
     }
 
-    fun writeJSON(amount: Int?, category: String?, comment: String?, variable: String?) {
+    fun writeJSON(amount: Int?, category: String?, comment: String?, variable: String?, path: String) {
         m = DataIC(amount, category, comment, variable)
         try {
             val root = File(context.getExternalFilesDir(null), "/MyFolder/")
             if (!root.exists()) {
                 root.mkdir()
             }
-            val file = File(root, "dataStore.json")
+            val file = File(root, path)
             if (!file.exists()) {
                 file.createNewFile()
                 list_m.add(m!!)
             } else {
-                list_m = readJSON().toMutableList()
+                list_m = readJSON(path).toMutableList()
                 list_m.add(m!!)
                 file.delete()
                 file.createNewFile()

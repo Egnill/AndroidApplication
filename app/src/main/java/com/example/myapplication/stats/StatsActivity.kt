@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.BaseActivity
 import com.example.myapplication.R
+import com.example.myapplication.manager.DataIC
 import com.example.myapplication.manager.ManagerIncomeCosts
 import java.math.BigDecimal
 
@@ -28,8 +29,8 @@ class StatsActivity : BaseActivity() {
         recyclerView.adapter = StatsListAdapter(getMockStats())
     }
 
-    private fun getMockStats(): List<Stats> {
-        val r = m.readJSON()
-        return listOf(Stats(r[r.size - 1].category, BigDecimal(r[r.size - 1].amount!!)))
+    private fun getMockStats(): List<DataIC> {
+        val r = m.readJSON("dataStore.json")
+        return r
     }
 }

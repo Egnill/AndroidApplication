@@ -28,13 +28,19 @@ class IMustFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        recyclerView = activity!!.findViewById(R.id.list_i_must)
+        /*recyclerView = list_i_must
         recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = StatsListAdapter(getMockStats())
+        recyclerView.adapter = StatsListAdapter(getMockStats())*/
     }
 
-    private fun getMockStats(): List<Stats> {
+    /*private fun getMockStats(): List<Stats> {
         return listOf(
+            Stats("Example", BigDecimal(0)),
+            Stats("Example", BigDecimal(0)),
+            Stats("Example", BigDecimal(0)),
+            Stats("Example", BigDecimal(0)),
+            Stats("Example", BigDecimal(0)),
+            Stats("Example", BigDecimal(0)),
             Stats("Example", BigDecimal(0)),
             Stats("Example", BigDecimal(0)),
             Stats("Example", BigDecimal(0)),
@@ -52,5 +58,5 @@ class IMustFragment : Fragment() {
             Stats("Example", BigDecimal(0)),
             Stats("Example", BigDecimal(0))
         )
-    }
+    }*/
 }
