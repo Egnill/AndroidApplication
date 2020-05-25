@@ -8,11 +8,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
-import com.example.myapplication.stats.Stats
-import com.example.myapplication.stats.StatsListAdapter
+import com.example.myapplication.manager.DataIC
+import com.example.myapplication.manager.ManagerIncomeCosts
+import kotlinx.android.synthetic.main.activity_debts.*
 import kotlinx.android.synthetic.main.fragment_i_must.*
-import java.math.BigDecimal
 
+@Suppress("IMPLICIT_BOXING_IN_IDENTITY_EQUALS")
 class IMustFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
@@ -28,35 +29,30 @@ class IMustFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        /*recyclerView = list_i_must
+        recyclerView = list_i_must
         recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = StatsListAdapter(getMockStats())*/
+        recyclerView.adapter = DebtsListAdapter(getMockStats())
+
+        list_i_must.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (dy > 0 && activity?.fab?.visibility === View.VISIBLE) {
+                    activity?.fab?.hide()
+                } else if (dy < 0 && activity?.fab?.visibility !== View.VISIBLE) {
+                    activity?.fab?.show()
+                }
+            }
+        })
     }
 
-    /*private fun getMockStats(): List<Stats> {
-        return listOf(
-            Stats("Example", BigDecimal(0)),
-            Stats("Example", BigDecimal(0)),
-            Stats("Example", BigDecimal(0)),
-            Stats("Example", BigDecimal(0)),
-            Stats("Example", BigDecimal(0)),
-            Stats("Example", BigDecimal(0)),
-            Stats("Example", BigDecimal(0)),
-            Stats("Example", BigDecimal(0)),
-            Stats("Example", BigDecimal(0)),
-            Stats("Example", BigDecimal(0)),
-            Stats("Example", BigDecimal(0)),
-            Stats("Example", BigDecimal(0)),
-            Stats("Example", BigDecimal(0)),
-            Stats("Example", BigDecimal(0)),
-            Stats("Example", BigDecimal(0)),
-            Stats("Example", BigDecimal(0)),
-            Stats("Example", BigDecimal(0)),
-            Stats("Example", BigDecimal(0)),
-            Stats("Example", BigDecimal(0)),
-            Stats("Example", BigDecimal(0)),
-            Stats("Example", BigDecimal(0)),
-            Stats("Example", BigDecimal(0))
-        )
-    }*/
+    private fun getMockStats(): List<DataIC> {
+        val manager = ManagerIncomeCosts(activity?.applicationContext!!, getString(R.string.data_debts))
+        val list = manager.readJSON()
+        val range = list.indices
+        val outList:MutableList<DataIC> = ArrayList()
+        for (i in range){
+            if (list[i].variable == getString(R.string.i_must)) outList.add(list[i])
+        }
+        return outList
+    }
 }

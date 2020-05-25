@@ -9,7 +9,7 @@ import java.util.*
 
 class AddActivity : BaseActivity() {
 
-    private val m = ManagerIncomeCosts(this)
+    private val m = ManagerIncomeCosts(this, "dataStore.json")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +43,7 @@ class AddActivity : BaseActivity() {
             else -> null
         }
 
-        m.writeJSON(amount, category, comment, variable, "dataStore.json")
+        m.writeJSON(amount, category, comment, variable)
     }
 
     private fun setDate() {

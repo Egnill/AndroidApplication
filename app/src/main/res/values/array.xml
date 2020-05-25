@@ -6,17 +6,4 @@
         <item>Transport</item>
         <item>Sport</item>
     </string-array>
-
-    <string-array name="ex_array">
-        <item>Example</item>
-        <item>Example</item>
-        <item>Example</item>
-        <item>Example</item>
-        <item>Example</item>
-        <item>Example</item>
-        <item>Example</item>
-        <item>Example</item>
-        <item>Example</item>
-        <item>Example</item>
-    </string-array>
 </resources>

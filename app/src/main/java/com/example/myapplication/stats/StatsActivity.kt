@@ -12,7 +12,7 @@ import java.math.BigDecimal
 class StatsActivity : BaseActivity() {
 
     private lateinit var recyclerView: RecyclerView
-    private var m = ManagerIncomeCosts(this)
+    private var m = ManagerIncomeCosts(this, "dataStore.json")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +30,6 @@ class StatsActivity : BaseActivity() {
     }
 
     private fun getMockStats(): List<DataIC> {
-        val r = m.readJSON("dataStore.json")
-        return r
+        return m.readJSON()
     }
 }

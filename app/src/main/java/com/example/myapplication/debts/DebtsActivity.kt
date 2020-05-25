@@ -1,18 +1,18 @@
 package com.example.myapplication.debts
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
-import android.view.Gravity
-import android.view.LayoutInflater
 import android.view.View
-import android.widget.PopupWindow
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.BaseActivity
+import com.example.myapplication.DialogAddDebt
 import com.example.myapplication.R
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_debts.*
 
-
+@Suppress("DEPRECATED_IDENTITY_EQUALS")
 class DebtsActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +22,7 @@ class DebtsActivity : BaseActivity() {
         initViews()
     }
 
-    @SuppressLint("InflateParams")
+    @SuppressLint("InflateParams", "RestrictedApi")
     override fun initViews() {
         super.initViews()
 
@@ -37,16 +37,19 @@ class DebtsActivity : BaseActivity() {
         }.attach()
 
         fab.setOnClickListener {
-            val inflater = this.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            val pw = PopupWindow(
-                    inflater.inflate(R.layout.fragment_add_debts, null, false),
-                    1000,
-                    850,
-                    true
-                )
-            pw.showAtLocation(findViewById(R.id.debs_act), Gravity.CENTER, 0, 0)
+            val bundle = Bundle()
+            val dialogFragment = DialogAddDebt()
+            bundle.putBoolean("fullScreen", true)
+            bundle.putBoolean("notAlertDialog", true)
+            bundle.putInt("position", tabs.selectedTabPosition)
+            dialogFragment.arguments = bundle
+            val fragmentTransaction = supportFragmentManager.beginTransaction()
+            val prev = supportFragmentManager.findFragmentByTag("dialog")
+            if (prev != null) {
+                fragmentTransaction.remove(prev)
+            }
+            fragmentTransaction.addToBackStack(null)
+            dialogFragment.show(fragmentTransaction, "dialog")
         }
-
-        //if (R.id.list_i_must)
     }
 }
