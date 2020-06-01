@@ -19,37 +19,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/comment" />
 
-    <RadioGroup
-        style="@style/Widget.MaterialComponents.CompoundButton.RadioButton"
-        android:id="@+id/ic_radioGroup"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/linerLayout_ic"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="96dp"
-        android:layout_marginTop="28dp"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="vertical">
 
-        <RadioButton
-            style="@style/Widget.MaterialComponents.CompoundButton.RadioButton"
-            android:id="@+id/income_radioButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/mater_margin"
-            android:checked="true"
-            android:text="@string/income" />
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_ic"
+            style="@style/Material_TabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <RadioButton
-            style="@style/Widget.MaterialComponents.CompoundButton.RadioButton"
-            android:id="@+id/costs_radioButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/mater_margin"
-            android:text="@string/costs" />
-    </RadioGroup>
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/income"/>
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/costs"/>
+        </com.google.android.material.tabs.TabLayout>
+    </LinearLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/pay"
+        android:id="@+id/text_amount"
         style="@style/Material_Field"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -58,7 +53,7 @@
         android:hint="@string/pay"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ic_radioGroup"
+        app:layout_constraintTop_toBottomOf="@+id/linerLayout_ic"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintVertical_bias="@dimen/constraintVertical_bias">
 
@@ -79,14 +74,14 @@
         android:hint="@string/category"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pay"
+        app:layout_constraintTop_toBottomOf="@+id/text_amount"
         app:layout_constraintVertical_bias="@dimen/constraintVertical_bias">
 
         <AutoCompleteTextView
-            android:id="@+id/enter_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="none" />
+            android:inputType="none"
+            tools:ignore="LabelFor" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout

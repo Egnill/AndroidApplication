@@ -9,8 +9,6 @@ import javax.xml.parsers.ParserConfigurationException
 
 class ManagerIncomeCosts (var context: Context, var path: String) {
 
-    private var m: DataIC? = null
-    private lateinit var list_m: MutableList<DataIC>
     private val json = Json(JsonConfiguration.Stable)
 
     fun readJSON(): List<DataIC> {
@@ -27,8 +25,9 @@ class ManagerIncomeCosts (var context: Context, var path: String) {
     }
 
     fun writeJSON(amount: Int?, category: String?, comment: String?, variable: String?) {
-        m = DataIC(amount, category, comment, variable)
         try {
+            val m = DataIC(amount, category, comment, variable)
+            var list_m: MutableList<DataIC> = ArrayList()
             val root = File(context.getExternalFilesDir(null), "/MyFolder/")
             if (!root.exists()) {
                 root.mkdir()
@@ -36,10 +35,10 @@ class ManagerIncomeCosts (var context: Context, var path: String) {
             val file = File(root, path)
             if (!file.exists()) {
                 file.createNewFile()
-                list_m.add(m!!)
+                list_m.add(m)
             } else {
                 list_m = readJSON().toMutableList()
-                list_m.add(m!!)
+                list_m.add(m)
                 file.delete()
                 file.createNewFile()
             }

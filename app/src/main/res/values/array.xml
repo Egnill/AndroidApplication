@@ -2,8 +2,21 @@
 <resources>
     <string-array name="array_category">
         <item>Food</item>
-        <item>Health</item>
+        <item>Health and fitness</item>
         <item>Transport</item>
         <item>Sport</item>
+        <item>Children</item>
+        <item>Car</item>
+        <item>Relax and fun</item>
+        <item>Gifts</item>
+        <item>Cafes and restaurants</item>
+        <item>Education</item>
+        <item>Payments, commissions</item>
+        <item>Purchases: clothes etc.</item>
+    </string-array>
+
+    <string-array name="array_income">
+        <item>Card</item>
+        <item>Cash</item>
     </string-array>
 </resources>

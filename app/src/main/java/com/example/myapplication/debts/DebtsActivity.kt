@@ -37,18 +37,14 @@ class DebtsActivity : BaseActivity() {
         }.attach()
 
         fab.setOnClickListener {
-            val bundle = Bundle()
-            val dialogFragment = DialogAddDebt()
-            bundle.putBoolean("fullScreen", true)
-            bundle.putBoolean("notAlertDialog", true)
-            bundle.putInt("position", tabs.selectedTabPosition)
-            dialogFragment.arguments = bundle
-            val fragmentTransaction = supportFragmentManager.beginTransaction()
-            val prev = supportFragmentManager.findFragmentByTag("dialog")
-            if (prev != null) {
-                fragmentTransaction.remove(prev)
+            val bundle = Bundle().apply {
+                putInt("position", tabs.selectedTabPosition)
             }
-            fragmentTransaction.addToBackStack(null)
+            val dialogFragment = DialogAddDebt().apply {
+                arguments = bundle
+            }
+
+            val fragmentTransaction = supportFragmentManager.beginTransaction()
             dialogFragment.show(fragmentTransaction, "dialog")
         }
     }
