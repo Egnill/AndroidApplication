@@ -56,16 +56,18 @@ class AddActivity : BaseActivity() {
     }
 
     private fun addFun() {
-        val amount: Int = text_amount.editText?.text.toString().toInt() * getSign(tab_ic.selectedTabPosition)
-        val category: String = category.editText?.text.toString()
-        val comment: String? = comment.editText?.text.toString()
-        val variable: String? = when (tab_ic.selectedTabPosition) {
+        val amount = text_amount.editText?.text.toString().toInt() * getSign(tab_ic.selectedTabPosition)
+        val category = category.editText?.text.toString()
+        val comment = comment.editText?.text.toString()
+        val date = data.editText?.text.toString()
+        val time = time.editText?.text.toString()
+        val variable = when (tab_ic.selectedTabPosition) {
             0 -> getString(R.string.income)
             1 -> getString(R.string.costs)
             else -> null
         }
 
-        m.writeJSON(amount, category, comment, variable)
+        m.writeJSON(amount, category, comment, date, time, variable)
     }
 
     private fun setDate() {

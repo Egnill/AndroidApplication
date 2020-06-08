@@ -28,4 +28,8 @@ class DebtsListAdapter(private val data: List<DataIC>) : RecyclerView.Adapter<De
     }
 
     override fun getItemCount() = data.size
+
+    public fun updataItemAll () {
+        notifyDataSetChanged()
+    }
 }

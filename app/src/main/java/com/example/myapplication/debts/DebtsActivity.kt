@@ -2,13 +2,7 @@ package com.example.myapplication.debts
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.View
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.BaseActivity
-import com.example.myapplication.DialogAddDebt
-import com.example.myapplication.R
+import com.example.myapplication.*
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_debts.*
 

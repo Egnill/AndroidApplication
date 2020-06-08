@@ -95,24 +95,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showPieChartMockData() {
-        val entries = setEntries()/*listOf(
-            PieEntry(
-                15F,
-                "Транспорт"
-            ),
-            PieEntry(
-                25F,
-                "Развлечения"
-            ),
-            PieEntry(
-                40F,
-                "Еда"
-            ),
-            PieEntry(
-                20F,
-                "Спорт"
-            )
-        )*/
+        val entries = setEntries()
 
         val dataSet = PieDataSet(entries, "Статистика").apply {
             setDrawIcons(false)

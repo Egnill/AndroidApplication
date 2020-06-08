@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Material_Theme">
-        <activity android:name=".activity_group"></activity>
+        <activity android:name=".item_category"></activity>
+        <activity android:name=".activity_group" />
         <activity android:name=".debts.DebtsActivity" />
         <activity android:name=".stats.StatsActivity" />
         <activity android:name=".AddActivity" />

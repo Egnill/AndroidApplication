@@ -24,9 +24,9 @@ class ManagerIncomeCosts (var context: Context, var path: String) {
         return l
     }
 
-    fun writeJSON(amount: Int?, category: String?, comment: String?, variable: String?) {
+    fun writeJSON(amount: Int?, category: String?, comment: String?, date: String?, time: String?, variable: String?) {
         try {
-            val m = DataIC(amount, category, comment, variable)
+            val m = DataIC(amount, category, comment, date, time, variable)
             var list_m: MutableList<DataIC> = ArrayList()
             val root = File(context.getExternalFilesDir(null), "/MyFolder/")
             if (!root.exists()) {

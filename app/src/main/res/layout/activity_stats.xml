@@ -32,11 +32,6 @@
             android:id="@+id/expListView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/mater_margin"
-            android:layout_marginLeft="@dimen/mater_margin"
-            android:layout_marginBottom="@dimen/mater_margin"
-            android:layout_marginRight="@dimen/mater_margin"
-            android:layout_marginEnd="@dimen/mater_margin"
             android:divider="@null"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

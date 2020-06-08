@@ -14,7 +14,8 @@ class StatsExpandableListAdapter(context: Context, groups: List<DataIC>) : BaseE
 
     private val mGroups: List<List<DataIC>>
     private val mContext: Context
-    private val Sum = ArrayList<Int>()
+    private val SumGroup = ArrayList<Int>()
+    private val SumChild = ArrayList<Int>()
 
     override fun getGroupCount(): Int {
         return mGroups.size
@@ -61,9 +62,9 @@ class StatsExpandableListAdapter(context: Context, groups: List<DataIC>) : BaseE
         }
         val textGroup = convertView?.findViewById(R.id.textGroup) as TextView
         val sumGroup = convertView.findViewById(R.id.sumGroup) as TextView
-        val array_category = mContext.resources.getStringArray(R.array.array_category)
-        textGroup.text = array_category[groupPosition]
-        sumGroup.text = Sum[groupPosition].toString()
+        val array_budget = mContext.resources.getStringArray(R.array.array_budget)
+        textGroup.text = array_budget[groupPosition]
+        sumGroup.text = SumGroup[groupPosition].toString()
         return convertView
     }
 
@@ -82,7 +83,7 @@ class StatsExpandableListAdapter(context: Context, groups: List<DataIC>) : BaseE
 
         if (category != null && amount != null){
             category.text = mGroups[groupPosition][childPosition].category
-            amount.text = mGroups[groupPosition][childPosition].amount.toString()
+            amount.text = SumChild[childPosition].toString()
         }
 
         return convertView
@@ -93,21 +94,37 @@ class StatsExpandableListAdapter(context: Context, groups: List<DataIC>) : BaseE
     }
 
     private fun sortCategory(inArray: List<DataIC>) : List<List<DataIC>> {
+        val array_budget = mContext.resources.getStringArray(R.array.array_budget)
         val array_category = mContext.resources.getStringArray(R.array.array_category)
         val outArray = ArrayList<ArrayList<DataIC>>()
 
-        for (i in array_category) {
-            val list = ArrayList(inArray.filter { it.category == i })
+        for (i in array_budget) {
+            val list = ArrayList(inArray.filter { it.variable == i })
 
             if (list.isNotEmpty()) {
                 var sum_amount = 0
                 for (j in list) {
                     sum_amount += j.amount!!
                 }
-                Sum.add(sum_amount)
+                SumGroup.add(sum_amount)
             } else {
-                Sum.add(0)
+                SumGroup.add(0)
             }
+
+            for (j in array_category) {
+                val list_c = ArrayList(list.filter { it.category == j })
+
+                if (list_c.isNotEmpty()) {
+                    var sum_amount = 0
+                    for (h in list_c) {
+                        sum_amount += h.amount!!
+                    }
+                    SumChild.add(sum_amount)
+                } else {
+                    SumChild.add(0)
+                }
+            }
+
             outArray.add(list)
         }
         return outArray
