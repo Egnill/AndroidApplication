@@ -1,47 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/debs_act"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
+        style="@style/Material_TabLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/list"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabs"
-            style="@style/Material_TabLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/i_must" />
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.tabs.TabLayout>
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/they_owe_me" />
+    </com.google.android.material.tabs.TabLayout>
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/pager"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
-    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabs" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        style="@style/Material_FAB"
         android:id="@+id/fab"
+        style="@style/Material_FAB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/mater_margin"
-        android:layout_marginRight="@dimen/mater_margin"
         android:layout_marginEnd="@dimen/mater_margin"
+        android:layout_marginRight="@dimen/mater_margin"
+        android:layout_marginBottom="@dimen/mater_margin"
+        android:clickable="true"
+        app:layout_behavior="com.example.myapplication.FAB_Float_on_Scroll"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:srcCompat="@drawable/ic_add_black_24dp"
-        app:layout_behavior="com.example.myapplication.FAB_Float_on_Scroll"
-        android:clickable="true"
         tools:ignore="VectorDrawableCompat" />
 </androidx.constraintlayout.widget.ConstraintLayout>

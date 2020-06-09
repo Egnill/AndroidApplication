@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.widget.*
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_add.*
-import java.text.*
 import java.util.*
 
 private const val INCOME_INDEX = 0
@@ -57,9 +56,7 @@ class AddActivity : BaseActivity() {
 
     private fun setDate() {
         val currentDate = Date()
-        val dateFormat: DateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
         val dateText = dateFormat.format(currentDate)
-        val timeFormat: DateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
         val timeText = timeFormat.format(currentDate)
         data.editText?.setText(dateText)
         time.editText?.setText(timeText)

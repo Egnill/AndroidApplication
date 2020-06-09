@@ -24,7 +24,6 @@ import com.github.mikephil.charting.utils.ColorTemplate
 import com.github.mikephil.charting.utils.MPPointF
 import com.google.android.material.navigation.NavigationView
 
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var drawer: DrawerLayout
