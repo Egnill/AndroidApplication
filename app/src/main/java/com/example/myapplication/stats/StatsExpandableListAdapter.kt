@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import android.widget.BaseExpandableListAdapter
 import android.widget.TextView
 import com.example.myapplication.*
-import com.example.myapplication.manager.DataIC
+import com.example.myapplication.manager.CashOperationData
 
 
-class StatsExpandableListAdapter(context: Context, groups: List<DataIC>) : BaseExpandableListAdapter() {
+class StatsExpandableListAdapter(context: Context, groups: List<CashOperationData>) : BaseExpandableListAdapter() {
 
-    private val mGroups: List<List<DataIC>>
+    private val mGroups: List<List<CashOperationData>>
     private val mContext: Context
     private val SumGroup = ArrayList<Int>()
     private val SumChild = ArrayList<Int>()
@@ -93,10 +93,10 @@ class StatsExpandableListAdapter(context: Context, groups: List<DataIC>) : BaseE
         return true
     }
 
-    private fun sortCategory(inArray: List<DataIC>) : List<List<DataIC>> {
+    private fun sortCategory(inArray: List<CashOperationData>) : List<List<CashOperationData>> {
         val array_budget = mContext.resources.getStringArray(R.array.array_budget)
         val array_category = mContext.resources.getStringArray(R.array.array_category)
-        val outArray = ArrayList<ArrayList<DataIC>>()
+        val outArray = ArrayList<ArrayList<CashOperationData>>()
 
         for (i in array_budget) {
             val list = ArrayList(inArray.filter { it.variable == i })

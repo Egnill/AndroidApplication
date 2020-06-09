@@ -3,7 +3,7 @@ package com.example.myapplication.manager
 import kotlinx.serialization.*
 
 @Serializable
-data class DataIC(
+data class CashOperationData(
     var amount: Int?,
     var category: String?,
     var comment: String?,

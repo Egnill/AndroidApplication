@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.dataStorage
-import com.example.myapplication.manager.DataIC
+import com.example.myapplication.manager.CashOperationData
 import kotlinx.android.synthetic.main.fragment_view_category.*
 
 class FragmentViewCategory : DialogFragment() {
@@ -40,7 +40,7 @@ class FragmentViewCategory : DialogFragment() {
         recyclerView.adapter = adapter
     }
 
-    private fun getMockStats(): List<DataIC> {
+    private fun getMockStats(): List<CashOperationData> {
         return dataStorage.readJSON()
     }
 }

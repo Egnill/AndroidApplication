@@ -12,7 +12,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.myapplication.debts.DebtsActivity
-import com.example.myapplication.manager.DataIC
+import com.example.myapplication.manager.CashOperationData
 import com.example.myapplication.stats.StatsActivity
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.PieChart
@@ -146,7 +146,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun getSumCategory(inList: List<DataIC>): Int {
+    private fun getSumCategory(inList: List<CashOperationData>): Int {
         var sum = 0
         for (i in inList) {
             sum += i.amount!! * -1

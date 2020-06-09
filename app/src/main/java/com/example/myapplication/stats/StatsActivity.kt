@@ -4,7 +4,7 @@ import android.os.Bundle
 import com.example.myapplication.BaseActivity
 import com.example.myapplication.R
 import com.example.myapplication.dataStorage
-import com.example.myapplication.manager.DataIC
+import com.example.myapplication.manager.CashOperationData
 
 import kotlinx.android.synthetic.main.activity_stats.*
 
@@ -28,7 +28,7 @@ class StatsActivity : BaseActivity() {
         }
     }
 
-    private fun getMockStats(): List<DataIC> {
+    private fun getMockStats(): List<CashOperationData> {
         val out = dataStorage.readJSON()
         var balance_sum = 0
         for (i in out) {

@@ -11,8 +11,8 @@ class DataStorage(private val context: Context, private val path: String) {
 
     private val json = Json(JsonConfiguration.Stable)
 
-    fun readJSON(): List<DataIC> {
-        var l:List<DataIC> = ArrayList()
+    fun readJSON(): List<CashOperationData> {
+        var l:List<CashOperationData> = ArrayList()
         try {
             val rootPath = File(context.getExternalFilesDir(null), "/MyFolder/$path")
             val buf = BufferedReader(FileReader(rootPath))
@@ -26,8 +26,8 @@ class DataStorage(private val context: Context, private val path: String) {
 
     fun writeJSON(amount: Int?, category: String?, comment: String?, date: String?, time: String?, variable: String?) {
         try {
-            val m = DataIC(amount, category, comment, date, time, variable)
-            var list_m: MutableList<DataIC> = ArrayList()
+            val m = CashOperationData(amount, category, comment, date, time, variable)
+            var list_m: MutableList<CashOperationData> = ArrayList()
             val root = File(context.getExternalFilesDir(null), "/MyFolder/")
             if (!root.exists()) {
                 root.mkdir()
@@ -51,11 +51,11 @@ class DataStorage(private val context: Context, private val path: String) {
         }
     }
 
-    private fun toObject(stringValue: String): List<DataIC> {
-        return json.parse(DataIC.serializer().list, stringValue)
+    private fun toObject(stringValue: String): List<CashOperationData> {
+        return json.parse(CashOperationData.serializer().list, stringValue)
     }
 
-    private fun toJson(field: List<DataIC>): String {
-        return json.stringify(DataIC.serializer().list, field)
+    private fun toJson(field: List<CashOperationData>): String {
+        return json.stringify(CashOperationData.serializer().list, field)
     }
 }
