@@ -1,20 +1,23 @@
 package com.example.myapplication
 
+import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.DialogFragment
-import com.example.myapplication.manager.ManagerIncomeCosts
+import com.example.myapplication.debts.DebtAddedListener
+import com.example.myapplication.debts.DebtType
 import kotlinx.android.synthetic.main.fragment_add_debts.*
-import java.text.*
 import java.util.*
-import com.example.myapplication.debts.ListController as ListController
 
-class DialogAddDebt : DialogFragment() {
+class AddDebtDialogFragment : DialogFragment() {
 
-    private lateinit var list_controller: ListController
     private val currentDate = Date()
-    private val dateFormat: DateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
-    private val timeFormat: DateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+    private var listener: DebtAddedListener? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        listener = activity as? DebtAddedListener
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,23 +38,18 @@ class DialogAddDebt : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val debtType = arguments!!.getSerializable(DEBT_TYPE_KEY) as DebtType
+
         button_add_debt.setOnClickListener {
-            val context = requireContext()
-            val manager = ManagerIncomeCosts(context, getString(R.string.data_debts))
-            manager.writeJSON(
+            dataStorage.writeJSON(
                 amount.editText?.text.toString().toInt(),
                 to_whom.editText?.text.toString(),
                 text_comment.editText?.text.toString(),
                 dateFormat.format(currentDate),
                 timeFormat.format(currentDate),
-                getPosition()
+                debtType.toString()
             )
-            /*list_controller = if (getPosition() == getString(R.string.i_must)) {
-                fragmentManager!!.findFragmentById(R.id.fragment_i_must) as ListController
-            } else {
-                fragmentManager!!.findFragmentById(R.id.fragment_they_owe_me) as ListController
-            }
-            list_controller.updataAdapter()*/
+            listener?.onDebtAdded()
             dismiss()
         }
         button_cancel.setOnClickListener {
@@ -59,11 +57,20 @@ class DialogAddDebt : DialogFragment() {
         }
     }
 
-    private fun getPosition(): String {
-        return when (arguments?.getInt("position")) {
-            0 -> R.string.i_must
-            1 -> R.string.they_owe_me
-            else -> throw IllegalArgumentException()
-        }.let { getString(it) }
+    override fun onDetach() {
+        super.onDetach()
+        listener = null
+    }
+
+    companion object {
+        private const val DEBT_TYPE_KEY = "DEBT_TYPE_KEY"
+
+        fun newInstance(debtType: DebtType): AddDebtDialogFragment {
+            return AddDebtDialogFragment().apply {
+                arguments = Bundle().apply {
+                    putSerializable(DEBT_TYPE_KEY, debtType)
+                }
+            }
+        }
     }
 }

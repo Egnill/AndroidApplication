@@ -12,8 +12,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.myapplication.debts.DebtsActivity
-import com.example.myapplication.manager.DataIC
-import com.example.myapplication.manager.ManagerIncomeCosts
+import com.example.myapplication.manager.CashOperationData
 import com.example.myapplication.stats.StatsActivity
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.PieChart
@@ -25,14 +24,12 @@ import com.github.mikephil.charting.utils.ColorTemplate
 import com.github.mikephil.charting.utils.MPPointF
 import com.google.android.material.navigation.NavigationView
 
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var drawer: DrawerLayout
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var navView: NavigationView
     private lateinit var pieChart: PieChart
-    private val manager = ManagerIncomeCosts(this, "dataStore.json")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -117,7 +114,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setEntries(): List<PieEntry> {
-        val inList = manager.readJSON()
+        val inList = dataStorage.readJSON()
         if (inList.isNotEmpty()) {
             val resList = inList.filter { it.amount!! < 0 }
             val outList = ArrayList<PieEntry>()
@@ -149,7 +146,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun getSumCategory(inList: List<DataIC>): Int {
+    private fun getSumCategory(inList: List<CashOperationData>): Int {
         var sum = 0
         for (i in inList) {
             sum += i.amount!! * -1

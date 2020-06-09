@@ -1,17 +1,15 @@
 package com.example.myapplication.stats
 
 import android.os.Bundle
-import android.widget.ExpandableListView.OnChildClickListener
 import com.example.myapplication.BaseActivity
 import com.example.myapplication.R
-import com.example.myapplication.manager.DataIC
-import com.example.myapplication.manager.ManagerIncomeCosts
+import com.example.myapplication.dataStorage
+import com.example.myapplication.manager.CashOperationData
+
 import kotlinx.android.synthetic.main.activity_stats.*
 
 
 class StatsActivity : BaseActivity() {
-
-    private var m = ManagerIncomeCosts(this, "dataStore.json")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,8 +28,8 @@ class StatsActivity : BaseActivity() {
         }
     }
 
-    private fun getMockStats(): List<DataIC> {
-        val out = m.readJSON()
+    private fun getMockStats(): List<CashOperationData> {
+        val out = dataStorage.readJSON()
         var balance_sum = 0
         for (i in out) {
             balance_sum += i.amount!!

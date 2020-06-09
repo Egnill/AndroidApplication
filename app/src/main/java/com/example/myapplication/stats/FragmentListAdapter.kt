@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
-import com.example.myapplication.manager.DataIC
+import com.example.myapplication.manager.CashOperationData
 
-class FragmentListAdapter(private val data: List<DataIC>) : RecyclerView.Adapter<FragmentListAdapter.ViewCategoryHolder>() {
+class FragmentListAdapter(private val data: List<CashOperationData>) : RecyclerView.Adapter<FragmentListAdapter.ViewCategoryHolder>() {
 
     class ViewCategoryHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 

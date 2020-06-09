@@ -1,45 +1,66 @@
 package com.example.myapplication.debts
 
-import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.*
-import com.google.android.material.tabs.TabLayoutMediator
+import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_debts.*
+import kotlinx.android.synthetic.main.activity_debts.tabs
 
-@Suppress("DEPRECATED_IDENTITY_EQUALS")
-class DebtsActivity : BaseActivity() {
+class DebtsActivity : BaseActivity(), DebtAddedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_debts)
-
         initViews()
+        reloadData()
     }
 
-    @SuppressLint("InflateParams", "RestrictedApi")
     override fun initViews() {
         super.initViews()
 
-        pager.adapter = DebtsAdapter(this)
+        tabs.addOnTabSelectedListener(object :
+            TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                reloadData()
+            }
 
-        TabLayoutMediator(tabs, pager) { tab, position ->
-            tab.text = when (position) {
-                0 -> R.string.i_must
-                1 -> R.string.they_owe_me
-                else -> throw IllegalArgumentException()
-            }.let { getString(it) }
-        }.attach()
+            override fun onTabUnselected(tab: TabLayout.Tab) {
+                // do nothing
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab) {
+                // do nothing
+            }
+        })
+
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (dy > 0 && fab.visibility == View.VISIBLE) {
+                    fab?.hide()
+                } else if (dy < 0 && fab.visibility != View.VISIBLE) {
+                    fab?.show()
+                }
+            }
+        })
 
         fab.setOnClickListener {
-            val bundle = Bundle().apply {
-                putInt("position", tabs.selectedTabPosition)
-            }
-            val dialogFragment = DialogAddDebt().apply {
-                arguments = bundle
-            }
-
-            val fragmentTransaction = supportFragmentManager.beginTransaction()
-            dialogFragment.show(fragmentTransaction, "dialog")
+            val debtType = DebtType.fromInt(tabs.selectedTabPosition)
+            AddDebtDialogFragment.newInstance(debtType).show(supportFragmentManager,  null)
         }
+    }
+
+    override fun onDebtAdded() {
+        reloadData()
+    }
+
+    private fun reloadData() {
+        val debtType = DebtType.fromInt(tabs.selectedTabPosition)
+        val data = dataStorage.readJSON().filter { it.variable == debtType.toString() }
+        recyclerView.adapter = DebtsListAdapter(data)
     }
 }

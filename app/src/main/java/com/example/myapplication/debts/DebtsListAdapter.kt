@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
-import com.example.myapplication.manager.DataIC
+import com.example.myapplication.manager.CashOperationData
 
-class DebtsListAdapter(private val data: List<DataIC>) : RecyclerView.Adapter<DebtsListAdapter.DebtsViewHolder>() {
+class DebtsListAdapter(private val data: List<CashOperationData>) : RecyclerView.Adapter<DebtsListAdapter.DebtsViewHolder>() {
 
     class DebtsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
@@ -28,8 +28,4 @@ class DebtsListAdapter(private val data: List<DataIC>) : RecyclerView.Adapter<De
     }
 
     override fun getItemCount() = data.size
-
-    public fun updataItemAll () {
-        notifyDataSetChanged()
-    }
 }
