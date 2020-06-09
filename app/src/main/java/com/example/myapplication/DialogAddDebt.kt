@@ -3,7 +3,6 @@ package com.example.myapplication
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.DialogFragment
-import com.example.myapplication.manager.ManagerIncomeCosts
 import kotlinx.android.synthetic.main.fragment_add_debts.*
 import java.text.*
 import java.util.*
@@ -36,9 +35,7 @@ class DialogAddDebt : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         button_add_debt.setOnClickListener {
-            val context = requireContext()
-            val manager = ManagerIncomeCosts(context, getString(R.string.data_debts))
-            manager.writeJSON(
+            dataStorage.writeJSON(
                 amount.editText?.text.toString().toInt(),
                 to_whom.editText?.text.toString(),
                 text_comment.editText?.text.toString(),

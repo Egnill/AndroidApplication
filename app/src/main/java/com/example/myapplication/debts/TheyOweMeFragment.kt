@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
+import com.example.myapplication.dataStorage
 import com.example.myapplication.manager.DataIC
-import com.example.myapplication.manager.ManagerIncomeCosts
 import kotlinx.android.synthetic.main.activity_debts.*
 import kotlinx.android.synthetic.main.fragment_they_owe_me.view.*
 
@@ -44,8 +44,7 @@ class TheyOweMeFragment : Fragment(), ListController {
     }
 
     private fun getMockStats(): List<DataIC> {
-        val manager = ManagerIncomeCosts(activity?.applicationContext!!, getString(R.string.data_debts))
-        val list = manager.readJSON()
+        val list = dataStorage.readJSON()
         val str = getString(R.string.they_owe_me)
         return list.filter { it.variable == str }
     }

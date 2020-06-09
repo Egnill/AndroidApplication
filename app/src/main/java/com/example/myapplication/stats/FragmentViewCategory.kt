@@ -6,9 +6,8 @@ import android.view.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
+import com.example.myapplication.dataStorage
 import com.example.myapplication.manager.DataIC
-import com.example.myapplication.manager.ManagerIncomeCosts
-import kotlinx.android.synthetic.main.activity_stats.*
 import kotlinx.android.synthetic.main.fragment_view_category.*
 
 class FragmentViewCategory : DialogFragment() {
@@ -42,7 +41,6 @@ class FragmentViewCategory : DialogFragment() {
     }
 
     private fun getMockStats(): List<DataIC> {
-        val m = ManagerIncomeCosts( requireContext(), "dataStore.json")
-        return m.readJSON()
+        return dataStorage.readJSON()
     }
 }

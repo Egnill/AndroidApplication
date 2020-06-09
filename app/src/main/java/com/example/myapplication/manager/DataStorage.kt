@@ -7,7 +7,7 @@ import kotlinx.serialization.json.JsonConfiguration
 import java.io.*
 import javax.xml.parsers.ParserConfigurationException
 
-class ManagerIncomeCosts (var context: Context, var path: String) {
+class DataStorage(private val context: Context, private val path: String) {
 
     private val json = Json(JsonConfiguration.Stable)
 

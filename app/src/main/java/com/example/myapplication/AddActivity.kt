@@ -10,8 +10,6 @@ import java.util.*
 
 class AddActivity : BaseActivity() {
 
-    private val m = ManagerIncomeCosts(this, "dataStore.json")
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add)
@@ -67,7 +65,7 @@ class AddActivity : BaseActivity() {
             else -> null
         }
 
-        m.writeJSON(amount, category, comment, date, time, variable)
+        dataStorage.writeJSON(amount, category, comment, date, time, variable)
     }
 
     private fun setDate() {
