@@ -1,18 +1,17 @@
 package com.example.myapplication.stats
 
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import android.widget.ExpandableListView.OnChildClickListener
 import com.example.myapplication.BaseActivity
 import com.example.myapplication.R
 import com.example.myapplication.manager.DataIC
 import com.example.myapplication.manager.ManagerIncomeCosts
-import java.math.BigDecimal
+import kotlinx.android.synthetic.main.activity_stats.*
+
 
 class StatsActivity : BaseActivity() {
 
-    private lateinit var recyclerView: RecyclerView
-    private var m = ManagerIncomeCosts(this)
+    private var m = ManagerIncomeCosts(this, "dataStore.json")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,13 +23,35 @@ class StatsActivity : BaseActivity() {
     override fun initViews() {
         super.initViews()
 
-        recyclerView = findViewById(R.id.recycler_view)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = StatsListAdapter(getMockStats())
+        val adapter = StatsExpandableListAdapter(applicationContext, getMockStats())
+        expListView.setAdapter(adapter)
+        expListView.setOnChildClickListener { parent, v, groupPosition, childPosition, id ->
+            callSelectedCategory(groupPosition, childPosition)
+        }
     }
 
     private fun getMockStats(): List<DataIC> {
-        val r = m.readJSON("dataStore.json")
-        return r
+        val out = m.readJSON()
+        var balance_sum = 0
+        for (i in out) {
+            balance_sum += i.amount!!
+        }
+
+        balance.text = balance_sum.toString()
+        return out
+    }
+
+    private fun callSelectedCategory(positionGroup: Int, positionChild: Int): Boolean {
+        val bundle = Bundle().apply {
+            putString("position_category", expListView.selectedPosition.toString())
+        }
+        val dialogFragment = FragmentViewCategory().apply {
+            arguments = bundle
+        }
+
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        dialogFragment.show(fragmentTransaction, "dialog_category")
+
+        return true
     }
 }

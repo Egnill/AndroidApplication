@@ -3,13 +3,14 @@ package com.example.myapplication
 import android.os.Bundle
 import android.widget.*
 import com.example.myapplication.manager.*
+import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_add.*
 import java.text.*
 import java.util.*
 
 class AddActivity : BaseActivity() {
 
-    private val m = ManagerIncomeCosts(this)
+    private val m = ManagerIncomeCosts(this, "dataStore.json")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,31 +20,54 @@ class AddActivity : BaseActivity() {
         setDate()
         add_money.setOnClickListener {
             addFun()
+            clearField()
         }
+
+        tab_ic.addOnTabSelectedListener( object :
+            TabLayout.OnTabSelectedListener {
+                override fun onTabSelected(tab: TabLayout.Tab) {
+                    initViews()
+                }
+
+                override fun onTabUnselected(tab: TabLayout.Tab) {
+
+                }
+
+                override fun onTabReselected(tab: TabLayout.Tab) {
+
+                }
+        })
     }
 
     override fun initViews() {
         super.initViews()
 
         //For example
-        pay.editText?.setText("1000")
         comment.editText?.setText("plz, work")
 
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, resources.getStringArray(R.array.array_category))
+        val str = when (tab_ic.selectedTabPosition) {
+            0 -> resources.getStringArray(R.array.array_income)
+            1 -> resources.getStringArray(R.array.array_category)
+            else -> throw IllegalArgumentException()
+        }
+
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, str)
         (category.editText as? AutoCompleteTextView)?.setAdapter(adapter)
     }
 
     private fun addFun() {
-        val amount: Int = pay.editText?.text.toString().toInt()
-        val category: String = category.editText?.text.toString()
-        val comment: String? = comment.editText?.text.toString()
-        val variable: String? = when {
-            income_radioButton.isChecked -> "income"
-            costs_radioButton.isChecked -> "costs"
+        val amount = text_amount.editText?.text.toString().toInt() * getSign(tab_ic.selectedTabPosition)
+        val category = category.editText?.text.toString()
+        val comment = comment.editText?.text.toString()
+        val date = data.editText?.text.toString()
+        val time = time.editText?.text.toString()
+        val variable = when (tab_ic.selectedTabPosition) {
+            0 -> getString(R.string.income)
+            1 -> getString(R.string.costs)
             else -> null
         }
 
-        m.writeJSON(amount, category, comment, variable, "dataStore.json")
+        m.writeJSON(amount, category, comment, date, time, variable)
     }
 
     private fun setDate() {
@@ -55,5 +79,19 @@ class AddActivity : BaseActivity() {
 
         data.editText?.setText(dateText)
         time.editText?.setText(timeText)
+    }
+
+    private fun clearField() {
+        text_amount.editText?.text?.clear()
+        category.editText?.text?.clear()
+        comment.editText?.text?.clear()
+    }
+
+    private fun getSign(position: Int): Int {
+        return when (position) {
+            0 -> 1
+            1 -> -1
+            else -> 0
+        }
     }
 }

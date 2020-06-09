@@ -1,18 +1,12 @@
 package com.example.myapplication.debts
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.widget.PopupWindow
-import com.example.myapplication.BaseActivity
-import com.example.myapplication.R
+import com.example.myapplication.*
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_debts.*
 
-
+@Suppress("DEPRECATED_IDENTITY_EQUALS")
 class DebtsActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +16,7 @@ class DebtsActivity : BaseActivity() {
         initViews()
     }
 
-    @SuppressLint("InflateParams")
+    @SuppressLint("InflateParams", "RestrictedApi")
     override fun initViews() {
         super.initViews()
 
@@ -37,16 +31,15 @@ class DebtsActivity : BaseActivity() {
         }.attach()
 
         fab.setOnClickListener {
-            val inflater = this.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            val pw = PopupWindow(
-                    inflater.inflate(R.layout.fragment_add_debts, null, false),
-                    1000,
-                    850,
-                    true
-                )
-            pw.showAtLocation(findViewById(R.id.debs_act), Gravity.CENTER, 0, 0)
-        }
+            val bundle = Bundle().apply {
+                putInt("position", tabs.selectedTabPosition)
+            }
+            val dialogFragment = DialogAddDebt().apply {
+                arguments = bundle
+            }
 
-        //if (R.id.list_i_must)
+            val fragmentTransaction = supportFragmentManager.beginTransaction()
+            dialogFragment.show(fragmentTransaction, "dialog")
+        }
     }
 }

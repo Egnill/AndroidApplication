@@ -2,7 +2,9 @@
 <resources>
 
     <dimen name="test_size">24sp</dimen>
+    <dimen name="text_size_balance">48sp</dimen>
     <dimen name="test_size_fragment">16sp</dimen>
+
     <dimen name="l_width">200dp</dimen>
     <dimen name="margin_start">40dp</dimen>
     <dimen name="margin_left">40dp</dimen>

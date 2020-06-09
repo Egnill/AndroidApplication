@@ -29,4 +29,7 @@
     <string name="add_debt">Add debt</string>
     <string name="cancel">Cancel</string>
 
+    <string name="data_stats">dataStore.json</string>
+    <string name="data_debts">dataDebts.json</string>
+
 </resources>

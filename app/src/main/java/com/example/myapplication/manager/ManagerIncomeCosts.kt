@@ -7,13 +7,11 @@ import kotlinx.serialization.json.JsonConfiguration
 import java.io.*
 import javax.xml.parsers.ParserConfigurationException
 
-class ManagerIncomeCosts (var context: Context) {
+class ManagerIncomeCosts (var context: Context, var path: String) {
 
-    private var m: DataIC? = null
-    private lateinit var list_m: MutableList<DataIC>
     private val json = Json(JsonConfiguration.Stable)
 
-    fun readJSON(path: String): List<DataIC> {
+    fun readJSON(): List<DataIC> {
         var l:List<DataIC> = ArrayList()
         try {
             val rootPath = File(context.getExternalFilesDir(null), "/MyFolder/$path")
@@ -26,9 +24,10 @@ class ManagerIncomeCosts (var context: Context) {
         return l
     }
 
-    fun writeJSON(amount: Int?, category: String?, comment: String?, variable: String?, path: String) {
-        m = DataIC(amount, category, comment, variable)
+    fun writeJSON(amount: Int?, category: String?, comment: String?, date: String?, time: String?, variable: String?) {
         try {
+            val m = DataIC(amount, category, comment, date, time, variable)
+            var list_m: MutableList<DataIC> = ArrayList()
             val root = File(context.getExternalFilesDir(null), "/MyFolder/")
             if (!root.exists()) {
                 root.mkdir()
@@ -36,10 +35,10 @@ class ManagerIncomeCosts (var context: Context) {
             val file = File(root, path)
             if (!file.exists()) {
                 file.createNewFile()
-                list_m.add(m!!)
+                list_m.add(m)
             } else {
-                list_m = readJSON(path).toMutableList()
-                list_m.add(m!!)
+                list_m = readJSON().toMutableList()
+                list_m.add(m)
                 file.delete()
                 file.createNewFile()
             }

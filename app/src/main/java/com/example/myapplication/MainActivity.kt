@@ -12,6 +12,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.myapplication.debts.DebtsActivity
+import com.example.myapplication.manager.DataIC
+import com.example.myapplication.manager.ManagerIncomeCosts
 import com.example.myapplication.stats.StatsActivity
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.PieChart
@@ -30,6 +32,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var navView: NavigationView
     private lateinit var pieChart: PieChart
+    private val manager = ManagerIncomeCosts(this, "dataStore.json")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,7 +72,7 @@ class MainActivity : AppCompatActivity() {
             setEntryLabelColor(Color.WHITE)
             setEntryLabelTextSize(12f)
 
-            animateY(1400, Easing.EaseInOutQuad)
+            animateY(1400, Easing.EaseOutQuart)
         }
     }
 
@@ -92,24 +95,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showPieChartMockData() {
-        val entries = listOf(
-            PieEntry(
-                15F,
-                "Транспорт"
-            ),
-            PieEntry(
-                25F,
-                "Развлечения"
-            ),
-            PieEntry(
-                40F,
-                "Еда"
-            ),
-            PieEntry(
-                20F,
-                "Спорт"
-            )
-        )
+        val entries = setEntries()
 
         val dataSet = PieDataSet(entries, "Статистика").apply {
             setDrawIcons(false)
@@ -128,6 +114,47 @@ class MainActivity : AppCompatActivity() {
         pieChart.data = data
         pieChart.highlightValues(null)
         pieChart.invalidate()
+    }
+
+    private fun setEntries(): List<PieEntry> {
+        val inList = manager.readJSON()
+        if (inList.isNotEmpty()) {
+            val resList = inList.filter { it.amount!! < 0 }
+            val outList = ArrayList<PieEntry>()
+            val categoryList = resources.getStringArray(R.array.array_category)
+            val allBalance = getSumCategory(resList)
+
+            for (i in categoryList) {
+                val transitionalList = inList.filter { it.category == i }
+                if (transitionalList.isNotEmpty()) {
+                    val sumCategory = getSumCategory(transitionalList)
+                    val percentCategory = ((sumCategory * 100) / allBalance).toFloat()
+                    outList.add(
+                        PieEntry(
+                            percentCategory,
+                            i
+                        )
+                    )
+                }
+            }
+
+            return outList
+        } else {
+            return listOf(
+                PieEntry(
+                    100F,
+                    "Example"
+                )
+            )
+        }
+    }
+
+    private fun getSumCategory(inList: List<DataIC>): Int {
+        var sum = 0
+        for (i in inList) {
+            sum += i.amount!! * -1
+        }
+        return sum
     }
 
     private fun checkPermission() {
