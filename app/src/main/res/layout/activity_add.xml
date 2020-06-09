@@ -27,7 +27,7 @@
         android:orientation="vertical">
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab_ic"
+            android:id="@+id/tabs"
             style="@style/Material_TabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -78,6 +78,7 @@
         app:layout_constraintVertical_bias="@dimen/constraintVertical_bias">
 
         <AutoCompleteTextView
+            android:id="@+id/category_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="none"
@@ -140,7 +141,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/enter_comment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="plz, work"/>
     </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
