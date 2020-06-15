@@ -13,7 +13,7 @@ class FragmentListAdapter(private val data: List<CashOperationData>) : RecyclerV
     class ViewCategoryHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewCategoryHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.fragment_view_category, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_category, parent, false)
         return ViewCategoryHolder(itemView)
     }
 

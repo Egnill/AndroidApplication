@@ -1,9 +1,12 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">DEVITY</string>
 
-    <string name="add_menu_item_text">Добавить</string>
-    <string name="stats_menu_item_text">Статистика</string>
-    <string name="debts_menu_item_text">Долги</string>
+    <string name="add_menu_item_text">Add</string>
+    <string name="stats_menu_item_text">Statistics</string>
+    <string name="debts_menu_item_text">Debts</string>
+
+    <string name="button_add_1">Add income</string>
+    <string name="button_add_2">Add Cost</string>
 
     <string name="open">open</string>
     <string name="close">close</string>

@@ -20,6 +20,7 @@ class AddActivity : BaseActivity() {
     override fun initViews() {
         super.initViews()
 
+        title = getString(R.string.add_menu_item_text)
         setCategories()
         setDate()
 
@@ -46,8 +47,14 @@ class AddActivity : BaseActivity() {
 
     private fun setCategories() {
         val categories = when (tabs.selectedTabPosition) {
-            INCOME_INDEX -> resources.getStringArray(R.array.array_income)
-            COSTS_INDEX -> resources.getStringArray(R.array.array_category)
+            INCOME_INDEX -> {
+                add_money.text = getString(R.string.button_add_1)
+                resources.getStringArray(R.array.array_income)
+            }
+            COSTS_INDEX -> {
+                add_money.text = getString(R.string.button_add_2)
+                resources.getStringArray(R.array.array_category)
+            }
             else -> throw IllegalArgumentException()
         }
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
@@ -73,7 +80,7 @@ class AddActivity : BaseActivity() {
             COSTS_INDEX -> getString(R.string.costs)
             else -> null
         }
-        dataStorage.writeJSON(amount, category, comment, date, time, variable)
+        dataStorageAdd.writeJSON(amount, category, comment, date, time, variable)
     }
 
     private fun clearField() {

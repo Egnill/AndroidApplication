@@ -13,7 +13,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Material_Theme">
-
         <activity android:name=".debts.DebtsActivity" />
         <activity android:name=".stats.StatsActivity" />
         <activity android:name=".AddActivity" />
@@ -21,6 +20,7 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

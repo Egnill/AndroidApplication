@@ -1,12 +1,14 @@
 package com.example.myapplication.stats
 
 import android.os.Bundle
+import android.view.View
 import com.example.myapplication.BaseActivity
 import com.example.myapplication.R
-import com.example.myapplication.dataStorage
+import com.example.myapplication.dataStorageAdd
 import com.example.myapplication.manager.CashOperationData
 
 import kotlinx.android.synthetic.main.activity_stats.*
+import kotlinx.android.synthetic.main.item_stats.view.*
 
 
 class StatsActivity : BaseActivity() {
@@ -21,27 +23,23 @@ class StatsActivity : BaseActivity() {
     override fun initViews() {
         super.initViews()
 
+        title = getString(R.string.stats_menu_item_text)
         val adapter = StatsExpandableListAdapter(applicationContext, getMockStats())
         expListView.setAdapter(adapter)
         expListView.setOnChildClickListener { parent, v, groupPosition, childPosition, id ->
-            callSelectedCategory(groupPosition, childPosition)
+            callSelectedCategory(v)
         }
     }
 
     private fun getMockStats(): List<CashOperationData> {
-        val out = dataStorage.readJSON()
-        var balance_sum = 0
-        for (i in out) {
-            balance_sum += i.amount!!
-        }
-
-        balance.text = balance_sum.toString()
+        val out = dataStorageAdd.readJSON()
+        balance.text = out.sumBy { it.amount!! }.toString()
         return out
     }
 
-    private fun callSelectedCategory(positionGroup: Int, positionChild: Int): Boolean {
+    private fun callSelectedCategory(v: View): Boolean {
         val bundle = Bundle().apply {
-            putString("position_category", expListView.selectedPosition.toString())
+            putString("position_category", v.category.text.toString())
         }
         val dialogFragment = FragmentViewCategory().apply {
             arguments = bundle

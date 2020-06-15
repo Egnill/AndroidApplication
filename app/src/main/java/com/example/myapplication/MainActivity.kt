@@ -31,6 +31,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navView: NavigationView
     private lateinit var pieChart: PieChart
 
+    override fun onStart() {
+        super.onStart()
+        initPieChart()
+        showPieChartMockData()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -59,17 +65,19 @@ class MainActivity : AppCompatActivity() {
 
     private fun initPieChart() {
         pieChart = findViewById(R.id.pie_chart)
-        pieChart.run {
+            pieChart.run {
             description.isEnabled = false
             rotationAngle = 0F
             isRotationEnabled = true
             isHighlightPerTapEnabled = true
 
+            centerText = getString(R.string.costs)
+            setCenterTextSize(24f)
             setUsePercentValues(true)
             setEntryLabelColor(Color.WHITE)
             setEntryLabelTextSize(12f)
 
-            animateY(1400, Easing.EaseOutQuart)
+            animateXY(1500, 1500, Easing.EaseInSine, Easing.EaseInSine)
         }
     }
 
@@ -114,7 +122,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setEntries(): List<PieEntry> {
-        val inList = dataStorage.readJSON()
+        val inList = dataStorageAdd.readJSON()
         if (inList.isNotEmpty()) {
             val resList = inList.filter { it.amount!! < 0 }
             val outList = ArrayList<PieEntry>()

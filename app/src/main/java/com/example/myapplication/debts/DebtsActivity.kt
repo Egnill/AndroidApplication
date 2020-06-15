@@ -21,6 +21,7 @@ class DebtsActivity : BaseActivity(), DebtAddedListener {
     override fun initViews() {
         super.initViews()
 
+        title = getString(R.string.debts_menu_item_text)
         tabs.addOnTabSelectedListener(object :
             TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
@@ -60,7 +61,7 @@ class DebtsActivity : BaseActivity(), DebtAddedListener {
 
     private fun reloadData() {
         val debtType = DebtType.fromInt(tabs.selectedTabPosition)
-        val data = dataStorage.readJSON().filter { it.variable == debtType.toString() }
+        val data = dataStorageDebts.readJSON().filter { it.variable == debtType.toString() }
         recyclerView.adapter = DebtsListAdapter(data)
     }
 }

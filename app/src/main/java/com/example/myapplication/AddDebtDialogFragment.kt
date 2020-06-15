@@ -41,7 +41,7 @@ class AddDebtDialogFragment : DialogFragment() {
         val debtType = arguments!!.getSerializable(DEBT_TYPE_KEY) as DebtType
 
         button_add_debt.setOnClickListener {
-            dataStorage.writeJSON(
+            dataStorageDebts.writeJSON(
                 amount.editText?.text.toString().toInt(),
                 to_whom.editText?.text.toString(),
                 text_comment.editText?.text.toString(),

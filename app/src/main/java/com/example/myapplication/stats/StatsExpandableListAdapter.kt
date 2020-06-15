@@ -12,10 +12,9 @@ import com.example.myapplication.manager.CashOperationData
 
 class StatsExpandableListAdapter(context: Context, groups: List<CashOperationData>) : BaseExpandableListAdapter() {
 
-    private val mGroups: List<List<CashOperationData>>
-    private val mContext: Context
+    private val mGroups: List<List<Stats>>
+    private val mContext: Context = context
     private val SumGroup = ArrayList<Int>()
-    private val SumChild = ArrayList<Int>()
 
     override fun getGroupCount(): Int {
         return mGroups.size
@@ -62,8 +61,8 @@ class StatsExpandableListAdapter(context: Context, groups: List<CashOperationDat
         }
         val textGroup = convertView?.findViewById(R.id.textGroup) as TextView
         val sumGroup = convertView.findViewById(R.id.sumGroup) as TextView
-        val array_budget = mContext.resources.getStringArray(R.array.array_budget)
-        textGroup.text = array_budget[groupPosition]
+        val budgetArray = mContext.resources.getStringArray(R.array.array_budget)
+        textGroup.text = budgetArray[groupPosition]
         sumGroup.text = SumGroup[groupPosition].toString()
         return convertView
     }
@@ -83,7 +82,7 @@ class StatsExpandableListAdapter(context: Context, groups: List<CashOperationDat
 
         if (category != null && amount != null){
             category.text = mGroups[groupPosition][childPosition].category
-            amount.text = SumChild[childPosition].toString()
+            amount.text = mGroups[groupPosition][childPosition].amount.toString()
         }
 
         return convertView
@@ -93,45 +92,36 @@ class StatsExpandableListAdapter(context: Context, groups: List<CashOperationDat
         return true
     }
 
-    private fun sortCategory(inArray: List<CashOperationData>) : List<List<CashOperationData>> {
-        val array_budget = mContext.resources.getStringArray(R.array.array_budget)
-        val array_category = mContext.resources.getStringArray(R.array.array_category)
-        val outArray = ArrayList<ArrayList<CashOperationData>>()
+    private fun sortCategory(inArray: List<CashOperationData>) : List<List<Stats>> {
+        val budgetArray = mContext.resources.getStringArray(R.array.array_budget)
+        val mArray = ArrayList<Array<String>>()
+        mArray.add(mContext.resources.getStringArray(R.array.array_income))
+        mArray.add(mContext.resources.getStringArray(R.array.array_category))
+        val outArray = ArrayList<ArrayList<Stats>>()
 
-        for (i in array_budget) {
+        for ((flag, i) in budgetArray.withIndex()) {
             val list = ArrayList(inArray.filter { it.variable == i })
 
-            if (list.isNotEmpty()) {
-                var sum_amount = 0
-                for (j in list) {
-                    sum_amount += j.amount!!
-                }
-                SumGroup.add(sum_amount)
-            } else {
+            if (list.isNotEmpty())
+                SumGroup.add(list.sumBy { it.amount!! })
+            else
                 SumGroup.add(0)
-            }
 
-            for (j in array_category) {
+            val itemList = ArrayList<Stats>()
+            for (j in mArray[flag]) {
                 val list_c = ArrayList(list.filter { it.category == j })
 
                 if (list_c.isNotEmpty()) {
-                    var sum_amount = 0
-                    for (h in list_c) {
-                        sum_amount += h.amount!!
-                    }
-                    SumChild.add(sum_amount)
-                } else {
-                    SumChild.add(0)
+                    itemList.add(Stats((list_c[0].category), list_c.sumBy { it.amount!! }.toBigDecimal()))
                 }
             }
 
-            outArray.add(list)
+            outArray.add(itemList)
         }
         return outArray
     }
 
     init {
-        mContext = context
         mGroups = sortCategory(groups)
     }
 }

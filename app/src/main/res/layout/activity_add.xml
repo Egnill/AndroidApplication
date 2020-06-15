@@ -6,16 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".AddActivity">
 
-    <Button
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/add_money"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="212dp"
-        android:text="@string/add"
+        android:text="@string/button_add_1"
         android:textSize="@dimen/test_size"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="@dimen/mater_margin"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias="@dimen/constraintVertical_bias"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/comment" />
 
@@ -48,14 +46,13 @@
         style="@style/Material_Field"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/mater_margin_x0.5"
         android:layout_marginLeft="@dimen/mater_margin"
         android:layout_marginRight="@dimen/mater_margin"
         android:hint="@string/pay"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linerLayout_ic"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintVertical_bias="@dimen/constraintVertical_bias">
+        app:layout_constraintRight_toRightOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/enter_pay"
@@ -69,19 +66,18 @@
         style="@style/Material_DropDownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/mater_margin_x0.5"
         android:layout_marginLeft="@dimen/mater_margin"
         android:layout_marginRight="@dimen/mater_margin"
         android:hint="@string/category"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:inputType="none"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_amount"
-        app:layout_constraintVertical_bias="@dimen/constraintVertical_bias">
+        app:layout_constraintTop_toBottomOf="@+id/text_amount">
 
         <AutoCompleteTextView
             android:id="@+id/category_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="none"
             tools:ignore="LabelFor" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -90,14 +86,13 @@
         style="@style/Material_Field"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/mater_margin_x0.5"
         android:layout_marginLeft="@dimen/mater_margin"
         android:layout_marginRight="@dimen/mater_margin"
         android:hint="@string/time"
         android:clickable="false"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/data"
-        app:layout_constraintTop_toBottomOf="@+id/category"
-        app:layout_constraintVertical_bias="@dimen/constraintVertical_bias">
+        app:layout_constraintTop_toBottomOf="@+id/category">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/out_time"
@@ -110,14 +105,13 @@
         style="@style/Material_Field"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/mater_margin_x0.5"
         android:layout_marginLeft="@dimen/mater_margin"
         android:layout_marginRight="@dimen/mater_margin"
         android:hint="@string/date"
         android:clickable="false"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/category"
-        app:layout_constraintVertical_bias="@dimen/constraintVertical_bias">
+        app:layout_constraintTop_toBottomOf="@+id/category">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/out_data"
@@ -130,19 +124,17 @@
         android:id="@+id/comment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/mater_margin_x0.5"
         android:layout_marginLeft="@dimen/mater_margin"
         android:layout_marginRight="@dimen/mater_margin"
         android:hint="@string/comment"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/time"
-        app:layout_constraintVertical_bias="@dimen/constraintVertical_bias">
+        app:layout_constraintTop_toBottomOf="@+id/time">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/enter_comment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="plz, work"/>
+            android:layout_height="wrap_content"/>
     </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
