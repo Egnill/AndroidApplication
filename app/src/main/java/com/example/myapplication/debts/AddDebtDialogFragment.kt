@@ -1,11 +1,13 @@
-package com.example.myapplication
+package com.example.myapplication.debts
 
 import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.DialogFragment
-import com.example.myapplication.debts.DebtAddedListener
-import com.example.myapplication.debts.DebtType
+import com.example.myapplication.R
+import com.example.myapplication.dataStorageDebts
+import com.example.myapplication.dateFormat
+import com.example.myapplication.timeFormat
 import kotlinx.android.synthetic.main.fragment_add_debts.*
 import java.util.*
 

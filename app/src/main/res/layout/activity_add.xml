@@ -10,7 +10,9 @@
         android:id="@+id/add_money"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:backgroundTint="@color/colorAccent"
         android:text="@string/button_add_1"
+        android:gravity="center"
         android:textSize="@dimen/test_size"
         android:layout_marginTop="@dimen/mater_margin"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,11 +35,11 @@
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/income"/>
+                android:text="@string/income" />
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/costs"/>
+                android:text="@string/costs" />
         </com.google.android.material.tabs.TabLayout>
     </LinearLayout>
 

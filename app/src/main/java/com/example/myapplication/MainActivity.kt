@@ -6,13 +6,16 @@ import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.LinearLayout
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.debts.DebtsActivity
 import com.example.myapplication.manager.CashOperationData
+import com.example.myapplication.stats.FragmentListAdapter
 import com.example.myapplication.stats.StatsActivity
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.PieChart
@@ -23,6 +26,7 @@ import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.github.mikephil.charting.utils.MPPointF
 import com.google.android.material.navigation.NavigationView
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -42,8 +46,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         initViews()
-        initPieChart()
-        showPieChartMockData()
         initViewListeners()
         checkPermission()
     }
@@ -77,7 +79,18 @@ class MainActivity : AppCompatActivity() {
             setEntryLabelColor(Color.WHITE)
             setEntryLabelTextSize(12f)
 
-            animateXY(1500, 1500, Easing.EaseInSine, Easing.EaseInSine)
+            animateXY(1500, 1500, Easing.EaseInExpo, Easing.EaseInQuart)
+        }
+        
+        val d = pieChart.onTouchListener
+        recyclerView_main_activity.layoutManager = LinearLayoutManager(this)
+        val inList = dataStorageAdd.readJSON().filter { it.category == "Gifts" }
+        if (inList.isNotEmpty()) {
+            val resList = ArrayList<CashOperationData>()
+            resList.add(inList[0])
+            resList.add(inList[1])
+            resList.add(inList[2])
+            recyclerView_main_activity.adapter = FragmentListAdapter(resList)
         }
     }
 

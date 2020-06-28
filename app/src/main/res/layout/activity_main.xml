@@ -25,17 +25,14 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.6" />
 
-        <TextView
-            android:id="@+id/text_main_exp"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView_main_activity"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@android:color/darker_gray"
-            android:gravity="center"
-            android:text="Последние несколько продаж"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pie_chart"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/guideline" />
+            app:layout_constraintRight_toRightOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView
